@@ -1,7 +1,9 @@
 import api from "./axiosConfig";
 
 
-const API_URL = "http://localhost:8080/projects";
+// const API_URL = "http://localhost:8080/projects";
+const API_URL =
+  "https://portfolio-backend-8bsg.onrender.com/projects";
 
 // const getAuthHeader = () => ({
 //     headers: {
@@ -97,7 +99,7 @@ export const uploadImage = (file) => {
     formData.append("file", file);
 
     return api.post(
-        "http://localhost:8080/upload",
+        "https://portfolio-backend-8bsg.onrender.com/upload",
         formData,
         {
             headers: {

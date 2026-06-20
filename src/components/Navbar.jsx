@@ -4,7 +4,7 @@ function Navbar() {
 
             <div className="max-w-7xl mx-auto px-8 h-20 flex items-center justify-between">
 
-                <a  href="#hero">
+                <a  href="#home">
                     <h1 className="text-2xl font-bold">
                         Suraj Arolkar
                     </h1>

@@ -1,6 +1,6 @@
 function Hero() {
     return (
-        <section id = "hero"
+        <section id = "home"
             className="
                 relative
                 min-h-[85vh]

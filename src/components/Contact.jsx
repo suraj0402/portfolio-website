@@ -28,8 +28,8 @@ function Contact() {
         try {
 
             await axios.post(
-                // "https://portfolio-backend-8bsg.onrender.com/contact",
-                "http://localhost:8080/contact",
+                 "https://portfolio-backend-8bsg.onrender.com/contact",
+                // "http://localhost:8080/contact",
                 formData
             );
 

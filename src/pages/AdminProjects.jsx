@@ -17,6 +17,8 @@ function AdminProjects() {
     const [totalProjects, setTotalProjects] = useState(0);
     const [featuredCount, setFeaturedCount] = useState(0);
     const [categoryCount, setCategoryCount] = useState(0);
+    const [categoryFilter, setCategoryFilter] =
+    useState("All");
     
 
     useEffect(() => {
@@ -182,7 +184,27 @@ useEffect(() => {
                 "
             />
 
-            {projects.filter(project =>
+            <select
+    value={categoryFilter}
+    onChange={(e) =>
+        setCategoryFilter(e.target.value)
+    }
+    className="
+        w-full
+        p-3
+        mb-6
+        rounded-lg
+        bg-slate-800
+    "
+>
+    <option>All</option>
+    <option>Java</option>
+    <option>Spring Boot</option>
+    <option>React</option>
+    <option>Full Stack</option>
+</select>
+
+            {/* {projects.filter(project =>
                 project.title
                     .toLowerCase()
                     .includes(search.toLowerCase())
@@ -192,17 +214,46 @@ useEffect(() => {
                     No projects found
                 </p>
 
-            )}
+            )} */}
+
+            {projects.filter(project => {
+
+    const matchesSearch =
+        project.title
+            .toLowerCase()
+            .includes(search.toLowerCase());
+
+    const matchesCategory =
+        categoryFilter === "All" ||
+        project.category === categoryFilter;
+
+    return matchesSearch &&
+           matchesCategory;
+}).length === 0 && (
+
+        <p className="text-center text-slate-400">
+            No projects found
+        </p>
+)}
 
             <div className="space-y-4">
 
                 {projects
-                    .filter(project =>
-                        project.title
-                            .toLowerCase()
-                            .includes(search.toLowerCase())
-                    )
-                    .map(project => (
+    .filter(project => {
+
+        const matchesSearch =
+            project.title
+                .toLowerCase()
+                .includes(search.toLowerCase());
+
+        const matchesCategory =
+            categoryFilter === "All" ||
+            project.category === categoryFilter;
+
+        return matchesSearch &&
+               matchesCategory;
+    })
+    .map(project => (
 
                         <div
     key={project.id}

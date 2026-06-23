@@ -1,4 +1,56 @@
+import { useState } from "react";
+import axios from "axios";
+
 function Contact() {
+
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        message: ""
+    });
+
+    const [loading, setLoading] = useState(false);
+
+    const handleChange = (e) => {
+
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = async (e) => {
+
+        e.preventDefault();
+
+        setLoading(true);
+
+        try {
+
+            await axios.post(
+                // "https://portfolio-backend-8bsg.onrender.com/contact",
+                "http://localhost:8080/contact",
+                formData
+            );
+
+            alert("Message sent successfully");
+
+            setFormData({
+                name: "",
+                email: "",
+                message: ""
+            });
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Failed to send message");
+        }
+
+        setLoading(false);
+    };
+
     return (
         <section
             id="contact"
@@ -17,11 +69,18 @@ function Contact() {
 
                 <div className="bg-slate-800 p-10 rounded-3xl">
 
-                    <form className="space-y-6">
+                    <form
+                        onSubmit={handleSubmit}
+                        className="space-y-6"
+                    >
 
                         <input
                             type="text"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
                             placeholder="Your Name"
+                            required
                             className="
                                 w-full
                                 p-5
@@ -34,7 +93,11 @@ function Contact() {
 
                         <input
                             type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
                             placeholder="Your Email"
+                            required
                             className="
                                 w-full
                                 p-5
@@ -47,7 +110,11 @@ function Contact() {
 
                         <textarea
                             rows="6"
+                            name="message"
+                            value={formData.message}
+                            onChange={handleChange}
                             placeholder="Your Message"
+                            required
                             className="
                                 w-full
                                 p-5
@@ -60,6 +127,7 @@ function Contact() {
 
                         <button
                             type="submit"
+                            disabled={loading}
                             className="
                                 bg-blue-500
                                 hover:bg-blue-600
@@ -70,7 +138,9 @@ function Contact() {
                                 transition
                             "
                         >
-                            Send Message
+                            {loading
+                                ? "Sending..."
+                                : "Send Message"}
                         </button>
 
                     </form>
